@@ -14,6 +14,8 @@ export const api = axios.create({
   baseURL,
   headers: { "Content-Type": "application/json" },
   timeout: 15_000,
+  // Send the httpOnly refresh-token cookie set by the API on /auth/* calls.
+  withCredentials: true,
 });
 
 /** Token helpers – localStorage is only available in the browser. */
@@ -64,11 +66,15 @@ api.interceptors.response.use(
       redirectToLogin();
     }
 
+    // Validation failures arrive as an array of messages; flatten for display.
+    const apiMessage = error.response?.data?.message;
     const message =
-      error.response?.data?.message ??
+      (Array.isArray(apiMessage) ? apiMessage.join(". ") : apiMessage) ??
       (error.code === "ECONNABORTED" ? "Request timed out" : error.message) ??
       "Something went wrong";
 
-    return Promise.reject(new ApiError(message, status, error.response?.data?.errors));
+    return Promise.reject(
+      new ApiError(message, status, Array.isArray(apiMessage) ? apiMessage : []),
+    );
   },
 );
