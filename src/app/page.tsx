@@ -1,19 +1,31 @@
-import { UserForm } from "@/components/users/user-form";
-import { UserList } from "@/components/users/user-list";
+import { CtaBand } from "@/components/home/cta-band";
+import { EventsWithSidebar } from "@/components/home/events-with-sidebar";
+import { Features } from "@/components/home/features";
+import { HeroSlider } from "@/components/home/hero-slider";
+import { LatestNews } from "@/components/home/latest-news";
+import { StatsBand } from "@/components/home/stats-band";
+import { Testimonials } from "@/components/home/testimonials";
+import { Welcome } from "@/components/home/welcome";
+import { SiteFooter } from "@/components/layout/site-footer";
+import { SiteHeader } from "@/components/layout/site-header";
 
-// Server Component: static shell; the interactive pieces are client components.
 export default function HomePage() {
   return (
-    <main className="mx-auto flex w-full max-w-2xl flex-1 flex-col gap-10 px-4 py-12">
-      <section className="flex flex-col gap-4">
-        <h1 className="text-2xl font-semibold tracking-tight">Create a user</h1>
-        <UserForm />
-      </section>
+    <>
+      <span id="top" />
+      <SiteHeader />
+      <main className="flex-1">
+        <HeroSlider />
+        <Welcome />
+        <Features />
+        <StatsBand />
+        <LatestNews />
+        <EventsWithSidebar />
+        <Testimonials />
+        <CtaBand />
+      </main>
 
-      <section className="flex flex-col gap-4">
-        <h2 className="text-lg font-semibold tracking-tight">Users</h2>
-        <UserList />
-      </section>
-    </main>
+      <SiteFooter />
+    </>
   );
 }

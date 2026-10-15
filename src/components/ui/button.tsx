@@ -1,7 +1,8 @@
 import type { ButtonHTMLAttributes } from "react";
 import { cn } from "@/lib/utils";
+import { BTN_PRIMARY, BTN_SECONDARY, TEXT_LINK } from "./styles";
 
-type Variant = "primary" | "secondary" | "ghost";
+type Variant = "primary" | "secondary" | "text";
 
 interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   variant?: Variant;
@@ -9,12 +10,12 @@ interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
 }
 
 const variantClasses: Record<Variant, string> = {
-  primary: "bg-zinc-900 text-white hover:bg-zinc-700 dark:bg-zinc-100 dark:text-zinc-900 dark:hover:bg-zinc-300",
-  secondary:
-    "border border-zinc-300 bg-white text-zinc-900 hover:bg-zinc-50 dark:border-zinc-700 dark:bg-zinc-900 dark:text-zinc-100 dark:hover:bg-zinc-800",
-  ghost: "text-zinc-700 hover:bg-zinc-100 dark:text-zinc-300 dark:hover:bg-zinc-800",
+  primary: BTN_PRIMARY,
+  secondary: BTN_SECONDARY,
+  text: TEXT_LINK,
 };
 
+/** Form button sharing the site-wide button styles. */
 export function Button({
   variant = "primary",
   isLoading = false,
@@ -29,13 +30,7 @@ export function Button({
       type={type}
       disabled={disabled || isLoading}
       aria-busy={isLoading || undefined}
-      className={cn(
-        "inline-flex h-10 items-center justify-center gap-2 rounded-md px-4 text-sm font-medium transition-colors",
-        "focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-zinc-500",
-        "disabled:cursor-not-allowed disabled:opacity-50",
-        variantClasses[variant],
-        className,
-      )}
+      className={cn(variantClasses[variant], "disabled:cursor-not-allowed disabled:opacity-50", className)}
       {...props}
     >
       {isLoading && (

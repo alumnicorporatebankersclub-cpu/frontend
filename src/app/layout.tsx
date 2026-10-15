@@ -1,33 +1,33 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Montserrat } from "next/font/google";
+import { SITE } from "@/config/site";
 import { Providers } from "./providers";
+import "lenis/dist/lenis.css";
 import "./globals.css";
+import "./motion.css";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
+/** One family for everything: headings, body and figures. */
+const montserrat = Montserrat({
+  variable: "--font-montserrat",
   subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
+  style: ["normal", "italic"],
 });
 
 export const metadata: Metadata = {
   title: {
-    default: "Alumni Club",
-    template: "%s | Alumni Club",
+    default: SITE.metaTitle,
+    template: `%s | ${SITE.metaTitle}`,
   },
-  description: "Alumni Club frontend",
+  description: SITE.description,
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html
       lang="en"
-      className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
+      className={`${montserrat.variable} h-full antialiased`}
     >
-      <body className="min-h-full flex flex-col">
+      <body className="flex min-h-full flex-col">
         <Providers>{children}</Providers>
       </body>
     </html>

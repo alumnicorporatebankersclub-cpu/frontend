@@ -4,6 +4,7 @@ import { useState, type ReactNode } from "react";
 import { QueryClientProvider } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { Toaster } from "react-hot-toast";
+import { MotionProvider } from "@/components/motion/motion-provider";
 import { makeQueryClient } from "@/lib/query-client";
 
 export function Providers({ children }: { children: ReactNode }) {
@@ -13,7 +14,7 @@ export function Providers({ children }: { children: ReactNode }) {
 
   return (
     <QueryClientProvider client={queryClient}>
-      {children}
+      <MotionProvider>{children}</MotionProvider>
       <Toaster position="top-right" toastOptions={{ duration: 4000 }} />
       {process.env.NODE_ENV === "development" && (
         <ReactQueryDevtools initialIsOpen={false} buttonPosition="bottom-right" />

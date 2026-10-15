@@ -1,26 +1,100 @@
 @import "tailwindcss";
 
+/*
+ * ACBC Brand Foundations — v1
+ * Brand constants (navy, teal, brass, ivory) never change with theme.
+ * Semantic tokens (bg, panel, text, muted, line) flip for dark mode.
+ * Light (white) is the default; dark mode is opt-in via <html data-theme="dark">.
+ */
+
+@custom-variant dark (&:where([data-theme="dark"], [data-theme="dark"] *));
+
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  /* Brand palette */
+  --brand-navy: #333c86;
+  --brand-navy-deep: #212959;
+  --brand-teal: #0a83b2;
+  --brand-ivory: #f1efe2;
+  --brand-ivory-panel: #e8e5d3;
+  --brand-ink: #16181f;
+  --brand-brass: #a3823e;
+  /* Warm off-white for alternating sections and the footer */
+  --brand-stone: #f5f3ee;
+
+  /* Semantic tokens — light */
+  --bg: #ffffff;
+  --panel: var(--brand-stone);
+  --text: var(--brand-ink);
+  --text-muted: rgba(22, 24, 31, 0.6);
+  --line: rgba(22, 24, 31, 0.12);
+  --secondary-text: var(--brand-navy-deep);
+  --on-navy: #f5f4ec;
+}
+
+/* Light (white) is the default. Dark only applies when opted in with data-theme="dark". */
+:root[data-theme="dark"] {
+  --bg: #15171c;
+  --panel: #1d2027;
+  --text: #eceae0;
+  --text-muted: rgba(236, 234, 224, 0.64);
+  --line: rgba(236, 234, 224, 0.16);
+  --secondary-text: #dce0f5;
 }
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  /* Brand */
+  --color-navy: var(--brand-navy);
+  --color-navy-deep: var(--brand-navy-deep);
+  --color-teal: var(--brand-teal);
+  --color-brass: var(--brand-brass);
+  --color-ivory: var(--brand-ivory);
+  --color-ink: var(--brand-ink);
+  --color-stone: var(--brand-stone);
+  /* Secondary ink for supporting text that must stay darker than `muted` */
+  --color-ink-soft: #3a3d47;
+  /* Primary button hover: ink lifted slightly */
+  --color-ink-hover: #2b2e38;
+  --color-on-navy: var(--on-navy);
+
+  /* Semantic */
+  --color-background: var(--bg);
+  --color-panel: var(--panel);
+  --color-foreground: var(--text);
+  --color-muted: var(--text-muted);
+  --color-line: var(--line);
+  --color-secondary-text: var(--secondary-text);
+
+  /* Type: Montserrat throughout. `display` and `mono` alias it so older classes stay consistent. */
+  --font-display: var(--font-montserrat), "Helvetica Neue", Arial, sans-serif;
+  --font-sans: var(--font-montserrat), "Helvetica Neue", Arial, sans-serif;
+  --font-mono: var(--font-montserrat), "Helvetica Neue", Arial, sans-serif;
+
+  /* Buttons and fields use a near-square, formal radius */
+  --radius-brand: 2px;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+html {
+  scroll-padding-top: env(safe-area-inset-top, 0px);
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: var(--font-sans), system-ui, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+}
+
+/* In the base layer so utility classes still win. Headings are tight and confident, never bold-heavy. */
+@layer base {
+  h1,
+  h2,
+  h3 {
+    font-weight: 600;
+    letter-spacing: -0.02em;
+    text-wrap: balance;
+  }
+
+  p {
+    text-wrap: pretty;
+  }
 }
