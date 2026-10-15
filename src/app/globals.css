@@ -1,12 +1,5 @@
 @import "tailwindcss";
 
-/*
- * ACBC Brand Foundations — v1
- * Brand constants (navy, teal, brass, ivory) never change with theme.
- * Semantic tokens (bg, panel, text, muted, line) flip for dark mode.
- * Light (white) is the default; dark mode is opt-in via <html data-theme="dark">.
- */
-
 @custom-variant dark (&:where([data-theme="dark"], [data-theme="dark"] *));
 
 :root {
@@ -21,7 +14,6 @@
   /* Warm off-white for alternating sections and the footer */
   --brand-stone: #f5f3ee;
 
-  /* Semantic tokens — light */
   --bg: #ffffff;
   --panel: var(--brand-stone);
   --text: var(--brand-ink);
@@ -69,7 +61,6 @@
   --font-sans: var(--font-montserrat), "Helvetica Neue", Arial, sans-serif;
   --font-mono: var(--font-montserrat), "Helvetica Neue", Arial, sans-serif;
 
-  /* Buttons and fields use a near-square, formal radius */
   --radius-brand: 2px;
 }
 
